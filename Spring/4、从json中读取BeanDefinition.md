@@ -420,3 +420,26 @@ public class ConstructorArgumentValuesTest {
     }
 }
 ```
+最后的运行结果
+```java
+public class Test {
+
+    public static void main(String[] args) throws IOException {
+        ClassPathJsonApplicationContext context = new ClassPathJsonApplicationContext("classpath:spring.json");
+        TestController testController = context.getBean(TestController.class);
+        System.out.println(testController);
+
+        //模拟BeanDefinition，里面放一个ConstructorArgumentValues，转换java对象是有值的
+        //把get和set方法去掉的话，fastjson，再去转换java对象，是没有值的
+//        JSONArray jsonArray = JSON.parseArray(StreamUtils.copyToString(Test.class.getClassLoader().getResourceAsStream("spring.json"), Charset.forName("UTF-8")));
+//        for (int i = 0; i < jsonArray.size(); i++) {
+//            JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+//            BeanDefinitionTest beanDefinition = JSON.toJavaObject(jsonObject,BeanDefinitionTest.class);
+//            System.out.println(beanDefinition);
+//        }
+//        System.out.println(jsonArray);
+    }
+}
+```
+如图所示
+![image](../images/1646937475(1).jpg)
