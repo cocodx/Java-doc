@@ -18,3 +18,28 @@
 
 启动zookeeper，进行bin目录
 > ./zkServer.sh start
+
+切换用户
+```powershell
+sudo -su richmail
+```
+
+vim显示行号，进行命令模式
+```powershell
+:set nu
+```
+
+查看进程端口
+```powershell
+netstat -lnpt |grep 40380
+```
+
+显示文件的大小
+```powershell
+du -h *.*
+```
+
+显示文件的权限
+```powershell
+ls -al
+```
