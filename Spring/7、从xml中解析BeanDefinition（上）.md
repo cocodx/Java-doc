@@ -589,3 +589,9 @@ private void parseDefaultElement(Element ele, BeanDefinitionParserDelegate deleg
 }
 ```
 非默认的处理器，主要是aop、context等非默认的namespace
+主要是几个核心类
+XmlBeanDefinitionReader
+BeanDefinitionDocumentReader
+XmlReaderContext
+namespaceHandlerResolver
+BeanDefinitionParserDelegate
