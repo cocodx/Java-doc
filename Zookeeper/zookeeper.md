@@ -91,6 +91,70 @@ znode节点，没有目录，不能直接cd，znode包含了以下信息
 
 序号是根据cversion的变更去进行设置的，把c000000000的序号节点给删掉了，再次去创建c节点，删掉了，还是从1开始啊c00000000001
 ![image](../images/Snipaste_2022-03-14_01-54-17.png)
-
+存数据是要经过编码和解码，所以看起来都是stirng类型。
 **zookeeper的znode里面存储的是字节数组，可以存任意的对象。**
 
+节点的属性里面ephemeralOwner不为空,不是0x0，就是临时节点，值是sessionId
+
+|属性值|含义|
+|-|-|
+|cZxid|创建事务id，无论节点怎么变化，都不变|
+|ctime|创建时间|
+|mZxid|当我们节点的数据发生变更，变更的事务id是什么|
+|mtime|最后修改时间|
+|pZxid|子节点发生了变更，变更的子节点的事务id，只对应增加和删除|
+|pZxid|子节点发生了变更，变更的子节点的事务id，只对应增加和删除|
+|cversion|对应子节点对应的变更数量，只对应增加和删除才会变更|
+|dataVersion|当前节点数据变更了，才会变更|
+|aclVersion|access control list 权限访问列表。|
+|ephemeralOwner|0x0表示是持久节点，其他的就是临时节点，表示创建人的sessionId|
+|dataLength|数据长度|
+|numChildren|子节点数量，不包括子子节点|
+ 
+**节点监听**
+
+|命令|描述|
+| - | - |
+| ls -w path | 监听子节点的变化（增，删） |
+| get -w path | 监听节点数据的变化 |
+| stat -w path | 监听节点属性的变化 |
+| printwatches on 或者 off | 触发监听后，是否打印监听事件（默认on） |
+
+zookeeper的watch，可以实现监听机制。无论在哪修改数据，其他节点都可以监听到。
+
+监听是一次性的，一旦过期之后，要重新监听。如果早期要监听的话，触发一次事件之后，再去触发一次。
+底层是用netty实现的。
+
+监听子节点，添加子节点的需求：查看我们当前服务的机器有多少存活的，app目录是持久目录，会创建临时序号节点app00000001:ip,app00000002:ip,app00000003:ip,app00000004:ip 只要对app进行监听，就知道现在有多少台机器。
+
+子节点数据的变更是不会影响，ls -w的监听
+子节点的变更（增删）不会影响，stat的监听
+
+**acl权限设置**
+ACL全称是Access Control List（访问控制列表），用于控制资源的访问权限。Zookeeper使用ACL来控制对其znode的访问。基于scheme:id:permission的方式进行权限控制。scheme表示授权模式、id模式对应值、permission即具体的增删改权限位。
+
+scheme：认证模型
+|方案|描述|
+| - | - |
+| world | 开放模式，world表示全世界都可以访问 |
+| ip | ip模式，限定客户端IP访问 |
+| auth | 用户密码认证模式，只有在会话中添加了认证才可以访问。 |
+| digest | 与auth类似，区别在于auth用明文密码，而digest用sha-1+base64加密后的密码。在实际使用中digest更常见。 |
+
+permission权限位
+|权限位|权限|描述|
+| - | -|- |
+| c | create | 可以创建子节点 |
+| d | delete | 可以删除子节点（仅下一级节点）|
+| r | read | 可以读取节点数据及显示子节点列表|
+| w | write | 可以设置节点数据|
+| a | admin | 可以设置节点访问控制列表权限|
+
+acl相关命令
+|命令|使用方式|描述|
+| - | - |- |
+| getAcl | getAcl path | 读取ACL权限 |
+| setAcl | setAcl path acl | 设置ACL权限 |
+| addauth | addauth scheme auth | 添加认证用户 |
+
+world模式下，anyone：rwa

@@ -1,7 +1,9 @@
 zookeeper在linux的一些操作
 
 启动zookeeper方式1,进入bin目录，并将conf目录下面的zoo_simple.cfg改为zoocfg
-> ./zkServer.sh start
+```powershell
+./zkServer.sh start
+```
 
 启动zookeeper方式2,进入bin目录
 > ./zkServer.sh ../conf/zoo_simple.cfg start
@@ -56,6 +58,7 @@ create -s /tuling/age 3
 create -s -e /tuling/age 3
 ```
 
+#### GET操作
 获取节点
 ```powershell
 get /tuling 
@@ -64,6 +67,11 @@ get /tuling
 修改节点数据
 ```powershell
 get /tuling "ok ok"
+```
+
+获取节点值和属性
+```powershell
+get -s /tuling/age
 ```
 
 删除节点，如果tuling这个节点下面还有子节点，会删除失败的,可以使用deleteall删除
@@ -88,4 +96,40 @@ history
 redo 12
 ```
 ![image](../../images/Snipaste_2022-03-14_01-06-26.png)
+
+查看节点属性
+```powershell
+stat /luban
+```
+
+监听temp节点数据的变更
+```powershell
+get -w /temp
+```
+
+监听子节点的变化（增删）
+```powershell
+ls -w path
+```
+
+监听节点数据的变化
+```powershell
+get -w path
+```
+
+监听节点属性的变化
+```powershell
+stat -w path
+```
+
+
+触发监听后，是否打印监听事件（默认on）
+```powershell
+printwatches on|off
+```
+
+查看节点权限
+```powershell
+getAcl /temp
+```
 

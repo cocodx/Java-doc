@@ -43,3 +43,14 @@ du -h *.*
 ```powershell
 ls -al
 ```
+
+查看当前系统时间
+```powershell
+date
+```
+![image](../../images/Snipaste_2022-03-17_07-40-41.png)
+
+查看硬件时间
+```powershell
+clock
+```
