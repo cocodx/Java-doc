@@ -38,6 +38,15 @@
 ##### 2.7选择中文
 ![image](../../images/Snipaste_2022-03-10_01-24-05.png)
 
+##### 2.8选择网络和主机
+![image](../../images/Snipaste_2022-03-21_06-42-32.png)
+
+![image](../../images/Snipaste_2022-03-21_06-41-27.png)
+
+##### 2.9设置密码
+![image](../../images/Snipaste_2022-03-21_06-43-12.png)
+
+
 ##### 3.0重启之后，ip addr
 ![image](../../images/Snipaste_2022-03-10_01-34-05.png)
 发现ens33，没有inet属性，那么就没法通过IP连接虚拟机。

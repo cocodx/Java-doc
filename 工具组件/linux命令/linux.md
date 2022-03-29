@@ -26,7 +26,7 @@ sudo -su richmail
 
 vim显示行号，进行命令模式
 ```powershell
-:set nu
+:set nu 或者 :set number
 ```
 
 查看进程端口
@@ -49,7 +49,7 @@ ls -al
 date
 ```
 ![image](../../images/Snipaste_2022-03-17_07-40-41.png)
-
+cst=chinese standard time 
 查看硬件时间
 ```powershell
 clock
