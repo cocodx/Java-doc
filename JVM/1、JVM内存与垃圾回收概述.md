@@ -1,5 +1,5 @@
 #### 1.1 jvm的意思
-JVM=Java Vritual Mechine = Java虚拟机
+JVM=Java Vritual Machine = Java虚拟机
 
 引入Java语言虚拟机后，Java语言在不同平台上运行时不需要重新编译。
 
@@ -61,15 +61,14 @@ public class Math {
 
 如果这个Math是继承其他类，那肯定是先加载父类。这里面还有一个知识点，父子类的先后加载顺序问题。
 
-
 javap -c Math.class
 
 类加载器和双亲委派机制
 上面的类加载过程主要是通过类加载器来实现的，Java里有如下几种类加载器
-* 启动类加载器：负载加载支撑JVM运行的位于负责加载存放在JDK\jre\lib(JDK代表JDK的安装目录，下同)下的核心类库，比如rt.jar、charsets.jar,比如Object类，String类啊。
-* 扩展类加载器：负责加载JDK\jre\lib\ext目录中。
+* 启动类加载器**BootstrapClassLoader**：负载加载支撑JVM运行的位于负责加载存放在JDK\jre\lib(JDK代表JDK的安装目录，下同)下的核心类库，比如rt.jar、charsets.jar,比如Object类，String类啊。
+* 扩展类加载器**ExtClassLoader**：负责加载JDK\jre\lib\ext目录中。
 ![image](../images/Snipaste_2022-03-29_05-45-32.png)
-* 应用程序类加载器：负载加载classPath路径下的类包，主要加载你自己写的那些类。
+* 应用程序类加载器**AppClassLoader**：负载加载classPath路径下的类包，主要加载你自己写的那些类。
 * 自定义加载器：负责加载用户自定义路径下的类包。
 
 
@@ -77,3 +76,37 @@ javap -c Math.class
 双亲委派机制，加载某个类时会先委托父加载器寻找目标类，找不到再委托上层父加载器加载，如果所有父加载器在自己的加载类路径下都找不到目标类，则 在自己的类加载路径中查找并载入目标类。
 比如我们的Math类，最先会找应用程序类加载器加载，应用程序类加载器会先委托扩展类 加载器加载，扩展类加载器再委托启动类加载器，顶层启动类加载器在自己的类加载路径里 找了半天没找到Math类，则向下退回加载Math类的请求，扩展类加载器收到回复就自己加 载，在自己的类加载路径里找了半天也没找到Math类，又向下退回Math类的加载请求给应 用程序类加载器，应用程序类加载器于是在自己的类加载路径里找Math类，结果找到了就 自己加载了。。
 **双亲委派机制说简单点就是，先找父亲加载，不行再由儿子自己加载**
+
+打印当前类加载器
+```java
+ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+System.out.println("name:"+classLoader);
+```
+结果
+> name:sun.misc.Launcher$AppClassLoader@18b4aac2
+
+那么如此类推，找到Bootstrap启动类加载器
+```java
+ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+System.out.println("name:"+classLoader);
+ClassLoader parentLoader = classLoader.getParent();
+System.out.println("name:"+parentLoader);
+ClassLoader grandLoader = parentLoader.getParent();
+System.out.println("name:"+grandLoader);
+```
+结果
+> name:sun.misc.Launcher$AppClassLoader@18b4aac2  
+> name:sun.misc.Launcher$ExtClassLoader@7f31245a
+> name:null
+
+BootStrapClassLoader是null，在java是不存在是用C++去实现的。
+
+自定义一个类加载器
+```java
+
+```
+
+tomcat打破双亲委派机制
+* 隔离不同应用：部署在同一个Tomcat中的不同应用A和B，例如A用了Spring2.5。B用了Spring3.5，那么这两个应用如果使用的是同一个类加载器，那么Web应用就会因为jar包覆盖而无法启动。
+* 灵活性：Web应用之间的类加载器相互独立，那么就可以根据修改不同的文件重建不同的类加载器替换原来的。从而不影响其他应用。
+* 性能：如果在一个Tomcat部署多个应用，多个应用中都有相同的类库依赖。那么可以把这相同的类库让Common类加载器进行加载。
