@@ -386,5 +386,17 @@ Exception in thread "main" java.lang.NoClassDefFoundError: java/lang/Object
 1、怎么编译Object.java?,让自定义加载器去加载User1.class不报错
 
 Tomcat双亲委派机制
+
+* commonLoader：Tomcat最基本的类加载器，加载路径中的class可以被Tomcat容器本身以及各个Webapp访问；
+* catalinaLoader：Tomcat容器中私有的类加载器，加载路径中的class对于Webapp不可见
+* sharedLoader：各个Webapp共享的类加载器，加载路径中的class对于所有Webapp可见，但是对于Tomcat容器不可见；
+* WebappClassLoader：各个Webapp私有的类加载器，加载路径中的class只对当前Webapp可见，比如加载war包里相关的类，每个war包应用都有自己的WebappClassLoader，实现相互隔离，比如不同war包应用引入了不同的spring版本，这样实现就能加载各自的spring版本；
+
+从图中的委派关系中可以看出：
+CommonClassLoader能加载的类都可以被CatalinaClassLoader和SharedClassLoader使用，从而实现了公有类库的共用，而catalinaClassLoader和SharedClassLoader自己能加载的类则与对方相互隔离。
+WebAppClassLoader可以使用SharedClassLoader加载到的类，但各个WebAppClassLoader实例之间相互隔离。
+而JasperLoader的加载范围仅仅是这个JSP文件所编译出来的那个.class文件，它出现的目的就是了为了被丢弃；当Web容器检测到JSP文件被修改时，会替换目前的JasperLoader实例,
+并通过再建立一个新的Jsp类加载器来实现JSP文件的热加载功能。
+
 ![image](../images/Tomcat双亲委派机制.png)
 自己搞不定，百度搞，谷歌搞，再去问别人搞。
