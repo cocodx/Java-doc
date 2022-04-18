@@ -365,6 +365,25 @@ public class MyClassLoaderTest {
 }
 
 ```
+刚才在mian函数执行，一下内容，结果如下
+```java
+MyClassLoader classLoader = new MyClassLoader("D:/test");
+Class clazz = classLoader.loadClass("com.liugang.jvm.User1");
+Object obj = clazz.newInstance();
+Method method = clazz.getDeclaredMethod("sout",null);
+method.invoke(obj,null);
+System.out.println(clazz.getClassLoader().getClass().getName());  
+*****************************结果如下
+Exception in thread "main" java.lang.NoClassDefFoundError: java/lang/Object
+	at java.lang.ClassLoader.defineClass1(Native Method)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:756)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:635)
+	at com.liugang.jvm.MyClassLoaderTest$MyClassLoader.findClass(MyClassLoaderTest.java:58)
+	at com.liugang.jvm.MyClassLoaderTest$MyClassLoader.loadClass(MyClassLoaderTest.java:39)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:351)
+	at com.liugang.jvm.MyClassLoaderTest.main(MyClassLoaderTest.java:74)
+```
+1、怎么编译Object.java?,让自定义加载器去加载User1.class不报错
 
 Tomcat双亲委派机制
 ![image](../images/Tomcat双亲委派机制.png)
