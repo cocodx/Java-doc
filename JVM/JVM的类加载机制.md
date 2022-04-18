@@ -398,5 +398,7 @@ WebAppClassLoader可以使用SharedClassLoader加载到的类，但各个WebAppC
 而JasperLoader的加载范围仅仅是这个JSP文件所编译出来的那个.class文件，它出现的目的就是了为了被丢弃；当Web容器检测到JSP文件被修改时，会替换目前的JasperLoader实例,
 并通过再建立一个新的Jsp类加载器来实现JSP文件的热加载功能。
 
+![image](../images/Tomcat类加载机制nice.png)
+
 ![image](../images/Tomcat双亲委派机制.png)
 自己搞不定，百度搞，谷歌搞，再去问别人搞。
