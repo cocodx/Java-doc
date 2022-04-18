@@ -211,6 +211,13 @@ public ClassLoader getClassLoader() {
 加载某个类时，会先委托父加载器寻找目标类，找不到再委托上层父加载器加载，如果所有父加载器路径下都找不到目标类，则在自己的类加载路径中查找并载入目标类。
 比如说我们的Math类，最先会找应用程序类加载器加载，应用程序类加载器会先委托扩展类加载器加载，扩展类加载器再委托引导类加载器
 
+**双亲委派机制来说简单就是，先找父亲加载，不行再由儿子加载**
+
+AppClassLoader加载类的双亲委派机制源码，AppClassLoader的loadClass方法最终会调用其父类ClassLoader的loadClass方法，该方法的大体逻辑如下：
+1. 首先，检查一下指定命令的类是否已经加载过了，如果加载过了，就不需要加载，直接返回。
+2. 如果此类没有加载过，那么，再判断一下，是否有父加载器；如果有父加载器，则由父加载器加载（即调用parent.loadClass(name,false);）或者是调用boostrap类加载器来加载
+3. 如果父加载器及bootstrap类加载器都没有找到指定的类，那么调用当前类加载器的findClass方法来完成类加载。
+
 appClassLoader的父类继承关系
 
 ![image](../images/Snipaste_2022-04-18_06-11-56.png)
@@ -224,11 +231,12 @@ protected Class<?> loadClass(String name, boolean resolve)
     {
         synchronized (getClassLoadingLock(name)) {
             // First, check if the class has already been loaded
+            //在已加载的集合里面，查找是不是之前已经加载过了，里面是一个native方法
             Class<?> c = findLoadedClass(name);
             if (c == null) {
                 long t0 = System.nanoTime();
                 try {
-                    //不为null就是找，extClassLoader
+                    //不为null就是找，extClassLoader，extClassLoader去loadClass，就是找BootsrapClassLoader引导类加载器去加载。
                     if (parent != null) {
                         c = parent.loadClass(name, false);
                     //为null，bootstrapLoader
@@ -239,7 +247,7 @@ protected Class<?> loadClass(String name, boolean resolve)
                     // ClassNotFoundException thrown if class not found
                     // from the non-null parent class loader
                 }
-
+                //如果搞了一圈还是null的，还是由自己来加载这个类
                 if (c == null) {
                     // If still not found, then invoke findClass in order
                     // to find the class.
@@ -293,6 +301,68 @@ java.lang.String.class被委托到引导类加载器，在rt.jar包里，全路�
 
 自定义类加载器
 ```java
+public class MyClassLoaderTest {
+
+    static class MyClassLoader extends ClassLoader{
+        private String classPath;
+
+        public MyClassLoader(String classPath) {
+            this.classPath = classPath;
+        }
+
+        private byte[] loadByte(String name)throws Exception{
+            name = name.replaceAll("\\.","/");
+            FileInputStream fileInputStream = new FileInputStream(classPath+"/"+name+".class");
+            int len = fileInputStream.available();
+            byte[] data = new byte[len];
+            fileInputStream.read(data);
+            fileInputStream.close();
+            return data;
+        }
+
+
+        @Override
+        public Class<?> loadClass(String name,boolean resolve) throws ClassNotFoundException {
+            synchronized (getClassLoadingLock(name)){
+                Class<?> c = findLoadedClass(name);
+                if (c==null){
+                    long t1 = System.nanoTime();
+                    if (name.startsWith("java.lang")){
+                        c = findClass(name);
+                    }
+
+                    sun.misc.PerfCounter.getFindClassTime().addElapsedTimeFrom(t1);
+                    sun.misc.PerfCounter.getFindClasses().increment();
+                }
+                if (resolve){
+                    resolveClass(c);
+                }
+                return c;
+            }
+        }
+
+        @Override
+        protected Class<?> findClass(String name) throws ClassNotFoundException {
+            byte[] data = new byte[0];
+            try {
+                data = loadByte(name);
+                return defineClass(name,data,0,data.length);
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new ClassNotFoundException();
+            }
+        }
+    }
+
+    public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+        MyClassLoader classLoader = new MyClassLoader("D:/test");
+        Class clazz = classLoader.loadClass("java.lang.String");
+        Object obj = clazz.newInstance();
+        Method method = clazz.getDeclaredMethod("sout",null);
+        method.invoke(obj,null);
+        System.out.println(clazz.getClassLoader().getClass().getName());
+    }
+}
 
 ```
 
