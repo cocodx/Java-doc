@@ -4,6 +4,10 @@ C语言在早期和java进行数据交互，就是用native这种本地方法进
 
 堆：
 ![image](../images/Snipaste_2022-03-30_05-12-03.png)
+
+Java visualVM的插件显示
+![image](../images/Snipaste_2022-04-19_09-18-48.png)
+
 假设设置堆为600M，默认情况下
 老年代占400M
 年轻带占200M
