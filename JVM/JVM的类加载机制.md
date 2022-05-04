@@ -1,5 +1,12 @@
 当我们用java命令运行某个类的main函数启动程序时，首先需要通过**类加载器**把主类加载到JVM。
-
+使用方法：
+在D盘的test目录下，新建Happy.java文件，先编译成Happy.class文件，再java Happy运行启动
+```powershell
+javac Happy.java
+java Happy
+```
+shift+鼠标右键出现powershell
+![image](../images/Snipaste_2022-04-18_23-59-36.png)
 ```java
 public class Math {
 
@@ -25,14 +32,14 @@ public class Math {
 **加载 >> 验证 >> 准备 >> 解析 >> 初始化 >>** 使用 >> 卸载
 1. 加载：在硬盘上查找并通过IO读入字节码文件，使用到类时才会加载，例如调用类的main()方法，new对象等等，在加载阶段会在内存中生成一个**代表这个类的java.lang.class对象**，作为方法区这个类的各种数据的访问入口
 1. 验证：校验字节码文件的正确性
-1. 准备：给类的静态变量分配内存，并赋予默认值
+1. 准备：给类的静态变量分配内存，并赋予默认值；**如果是常量的话直接赋指定的值**
 1. 解析：将**符号引用**替换为直接引用，该阶段会把一些静态方法（符号引用，比如main()方法）替换为指向数据所存内存的指针或句柄等（直接引用），这是所谓的**静态链接**过程（类加载期间完成），**动态链接**是在程序运行期间完成的将符号引用替换为直接引用。多态，接口有不同的实现。
 1. 初始化：对类的静态变量初始化为指定的值，执行静态代码块
 ![image](../images/类加载的主要流程阶段.png)
 
 类被加载到方法区中后主要包含 **运行时常量池，类型信息，字段信息，方法信息，类加载器的引用，对应class实例的引用**，等信息。
 **类加载器的引用**：这个类到类加载器实例的引用
-**对应class实例的引用**：类加载器在加载类信息放到方法区中后，会创建一个对应的Class类型的对象实例放到堆（Heap）中，做为开发人员访问方法区中类定义的入口和切入点。
+**对应class实例的引用**：类加载器在加载类信息放到方法区(Method Area)中后，会创建一个对应的Class类型的对象实例放到堆（Heap）中，做为开发人员访问方法区中类定义的入口和切入点。（堆，jvm栈，本地方法栈，程序计数器，方法区）
 
 注意：JVM里面的类加载，懒加载，一般是不会去加载它们，直到用到了它们。逐步加载这些类。
 jar包或war包里的类不是一次性全部加载的，是使用到时才加载。
@@ -327,7 +334,9 @@ public class MyClassLoaderTest {
                 Class<?> c = findLoadedClass(name);
                 if (c==null){
                     long t1 = System.nanoTime();
-                    if (name.startsWith("java.lang")){
+                    if (!name.startsWith("com.liugang.jvm")){
+                        this.getParent().loadClass(name);
+                    }else{
                         c = findClass(name);
                     }
 
@@ -384,6 +393,8 @@ Exception in thread "main" java.lang.NoClassDefFoundError: java/lang/Object
 	at com.liugang.jvm.MyClassLoaderTest.main(MyClassLoaderTest.java:74)
 ```
 1、怎么编译Object.java?,让自定义加载器去加载User1.class不报错
+找到Object类，在rt.jar包里面，解压出来，然后放到自定义类加载器的目标文件夹下
+这么核心的类，怎么会被你加载呢，除非重写JVM，Hotspot源码。
 
 Tomcat双亲委派机制
 
@@ -402,3 +413,5 @@ WebAppClassLoader可以使用SharedClassLoader加载到的类，但各个WebAppC
 
 ![image](../images/Tomcat双亲委派机制.png)
 自己搞不定，百度搞，谷歌搞，再去问别人搞。
+
+注意：同一个JVM内，两个相同包名和类名的类对象可以共存，因为它们的类加载器可以不一样，所以看两个类对象是否是同一个，除了看类的包名和类名是否都相同之外，还需要它们的类加载器也是同一个才能认为它们是同一个。

@@ -2,20 +2,65 @@
 C语言在早期和java进行数据交互，就是用native这种本地方法进行交互。
 那C语言也有局部变量，本地方法，那就是放在本地方法栈里面。
 
+#### java语言的跨平台特性
+![image](../images/Snipaste_2022-04-19_21-15-05.png)
+
 堆：
 ![image](../images/Snipaste_2022-03-30_05-12-03.png)
 
 Java visualVM的插件显示
 ![image](../images/Snipaste_2022-04-19_09-18-48.png)
 
-假设设置堆为600M，默认情况下
-老年代占400M
-年轻带占200M
-Eden区160M
-From 20M
-To 20M
+#### JVM整体结构以及内存模型
+![image](../images/)
+
+##### JVM内存参数设置
+假设设置堆为600M，默认情况下，老年代占400M，年轻带占200M，Eden区160M，From 20M，To 20M
 运行时数据区：
 ![image](../images/Snipaste_2022-03-30_05-36-43.png)
+Spring Boot程序的JVM参数设置格式（Tomcat启动直接加在bin目录下catalina.sh文件里）：
+```powershell
+java -Xms2048M -Xmx2048M -Xmn1024M -Xss512K -XX:MetaspaceSize=256M -XX:MaxMetaspaceSize=256M
+-jar microservice-eureka-server.jar
+```
+关于元空间的JVM参数有两个：-XX:MetaspaceSize=N和-XX:MaxMetaspaceSize=N
+-XX:MaxMetaspaceSize：设置元空间最大值，默认是-1，即不限制，或者说只受限于本地内存大小。
+-XX:MetaspaceSize：指定元空间触发Fullgc的初始阀值（元空间无固定的初始大小），以字节为单位，默认是21M，达到该值就会触发full gc进行类型卸载，同时收集器会对该值进行调整；如果释放了大量的空间，就适当降低该值；如果释放了很少了的空间，那么在不超过-XX:MaxMetaspaceSize(如果设置了的话)的情况下，适当提高该值。这个跟早期jdk版本的-XX:PermSize参数意思不一样，-XX:PermSize代表永久代的初始容量。
+
+由于调整元空间的大小需要Full GC，这是非常昂贵的操作，如果应用在启动的时候发生大量Full GC，通常都是由于永久代或元空间发生了大小调整，基于这种情况，一般建议在JVM参数中将MetaspaceSize和MaxMetaspaceSize设置成一样的值，并设置的比初始值要大，对于8G物理内存来说，一般设置256M。
+
+##### StackOverflowError示例
+```java
+public class StackOverflowError {
+
+    static int count=0;
+
+    static void redo(){
+        count++;
+        redo();
+    }
+
+    public static void main(String[] args) {
+        try{
+            redo();
+        }catch (Throwable throwable){
+            throwable.printStackTrace();
+            System.out.println(count);
+        }
+    }
+}
+运行结果：
+	at StackOverflowError.redo(StackOverflowError.java:7)
+	at StackOverflowError.redo(StackOverflowError.java:7)
+	at StackOverflowError.redo(StackOverflowError.java:7)
+	at StackOverflowError.redo(StackOverflowError.java:7)
+	at StackOverflowError.redo(StackOverflowError.java:7)
+23824
+```
+![image](../images/Snipaste_2022-04-19_21-46-30.png)
+设置100M之后呢，最大值变成了**4962274**
+
+-Xss设置越小 count值越小，说明一个线程能分配的栈帧就越小，但是对JVM整体来说能开启的线程数会更多
 
 随着时间推移，会发生minor GC，回收无引用的对象，就是回收的那些垃圾对象，JVM会有垃圾回收线程去回收垃圾对象.(类加载，最后进入的就是图中JVM的方法区)
 
