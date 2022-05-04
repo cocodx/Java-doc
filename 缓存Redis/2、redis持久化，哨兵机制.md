@@ -111,7 +111,9 @@ replica-read-only yes  //只读
 从节点，是只读的，不然多台节点写命令，数据搞乱了。
 
 在redis.conf配置里面有bind，这个是表示，允许什么id能够访问这台redis。
-127.0.0.1 表示只有本机才能访问redis，所以要绑定实际IP地址
+127.0.0.1 表示只有本机才能访问redis，所以要绑定实际IP地址(代表允许客户端通过机器的哪些ip去进行访问)
+一般通过配置密码
+protected-mode no #关闭保护模式，开启的话，只有本机才可以访问redis。这个配置和bind
 
 如果你为master配置一个slave，不管这个slave是否第一次连接上master，它都会用**psync**命令
 给master请求复制数据。
@@ -185,10 +187,10 @@ sentinel myid 854a016e3bc191cc316bbd75cd7ab22cbe352a88
 sentinel config-epoch mymaster 1
 sentinel leader-epoch mymaster 0
 sentinel current-epoch 1
-sentinel known-replica mymaster 192.168.125.100 6379
+sentinel known-replica mymaster 192.168.125.100 6379    //#代表主节点的从节点信息
 sentinel known-sentinel mymaster 192.168.125.60 26379 3f38c824c77d788bbb9fcbf0dcdc0f076175d666
 sentinel known-replica mymaster 192.168.125.60 6379
-sentinel known-sentinel mymaster 192.168.125.61 26379 d3dd29c980aeef0a1ecd34a11e5bdadcecc0e926
+sentinel known-sentinel mymaster 192.168.125.61 26379 d3dd29c980aeef0a1ecd34a11e5bdadcecc0e926   //#代表感知到的其它哨兵节点
 ```
 
 ./redis-sentinel ../conf/sentinel.conf
