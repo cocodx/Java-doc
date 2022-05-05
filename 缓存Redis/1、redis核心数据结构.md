@@ -9,7 +9,7 @@ GET key
 
 **对象缓存** 
 
-SET user:1 vlaue(json格式)】
+SET user:1 vlaue(json格式)】  
 mset user:1:name zhuge user:1:balance 1888  
 mget user:1:name user:1:balance
 
