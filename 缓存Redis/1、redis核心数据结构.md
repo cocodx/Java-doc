@@ -33,12 +33,12 @@ spring session + redis实现session共享
 incrby orderId 1000  //redis批量生成序列号，每次取1000，再去交互
 小问题：1，第一台机器拿到500就挂了呢，小问题。如果不连续就不适合。（123456789）
 
-**Hash常用操作**
-对象缓存
-hmset user {userId}:name zhuge {userId}:balance 1888
-hmset user 1:name zhuge 1:balance 1888
-hmget user 1:name 1:balance
-![image](../images/Snipaste_2022-05-01_17-19-27.png)
+**Hash常用操作**  
+对象缓存  
+hmset user {userId}:name zhuge {userId}:balance 1888  
+hmset user 1:name zhuge 1:balance 1888  
+hmget user 1:name 1:balance  
+![image](../images/Snipaste_2022-05-01_17-19-27.png)  
 
 bigkey操作，分段存储。
 就是user太大了，取出来耗时
