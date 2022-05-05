@@ -19,11 +19,12 @@ setnx product:10001 true
 
 DEL product:10001 //执行完业务释放锁
 
-set product:10001 true ex 10 nx //防止程序意外终止导致死锁
+set product:10001 true ex 10 nx //防止程序意外终止导致死锁  
+ttl product:10001  //查看key的过期时间
 
 **计数器**
-incr article:readcount:{文章id}
-get article:readcount:{文章id}
+incr article:readcount:{文章id}  
+get article:readcount:{文章id}  
 
 web集群session共享
 spring session + redis实现session共享
