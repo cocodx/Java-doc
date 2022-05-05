@@ -48,69 +48,69 @@ bigkey操作，分段存储。
 商品id为field
 商品数量为value
 
-![image](../images/Snipaste_2022-05-01_17-46-02.png)
-购物车操作
-添加商品 hset cart:1001 10088 1
-添加数量 hincrby cart:1001 10088 1
-商品总数 hlen cart:1001
-删除商品 hdel cart:1001 10088
-获取购物车所有商品 hgetall cart:1001
+![image](../images/Snipaste_2022-05-01_17-46-02.png)  
+购物车操作  
+添加商品 hset cart:1001 10088 1  
+添加数量 hincrby cart:1001 10088 1  
+商品总数 hlen cart:1001  
+删除商品 hdel cart:1001 10088  
+获取购物车所有商品 hgetall cart:1001  
 
-使用hash优点：
-1. 同类数据归类整合存储，方便数据管理
-1. 相比string操作消耗内存与cpu更小
-1. 相比string存储更节省空间
+使用hash优点：  
+1. 同类数据归类整合存储，方便数据管理  
+1. 相比string操作消耗内存与cpu更小  
+1. 相比string存储更节省空间  
 
-缺点
-1. 过期功能不能使用在field上，只能用在key上
-1. redis集群架构下不适合大规模使用（某个节点存放过多，数量全打到某一个节点了。分配不均）优化，key均匀分配到每个节点。
+缺点  
+1. 过期功能不能使用在field上，只能用在key上  
+1. redis集群架构下不适合大规模使用（某个节点存放过多，数量全打到某一个节点了。分配不均）优化，key均匀分配到每个节点。  
 
-![image](../images/Snipaste_2022-05-01_19-47-00.png)
+![image](../images/Snipaste_2022-05-01_19-47-00.png)  
 
-LPUSH key value[value......] //将一个或多个值value，插入到key列表的表头（最左边）
-RPUSH key value[value......] //将一个或多个值value，插入到key列表的表尾（最右边）
-LPOP key  //移除并返回Key列表的头元素
-RPOP key  //移除并返回Key列表的尾元素
-LRANGE key start stop   //返回列表key中指定区间内的元素，区间以偏移量start和stop指定
-BLPOP key [key ...] timeout   //从key列表表头弹出一个元素，若列表中没有元素，阻塞等待timeout秒，如果timeout=0，一直阻塞等待
-BRPOP key [key ...] timeout   //从key列表表尾弹出一个元素，若列表中没有元素，阻塞等待timeout秒，如果timeout=0，一直阻塞等待
-![image](../images/Snipaste_2022-05-01_19-52-42.png)
+LPUSH key value[value......] //将一个或多个值value，插入到key列表的表头（最左边）  
+RPUSH key value[value......] //将一个或多个值value，插入到key列表的表尾（最右边）  
+LPOP key  //移除并返回Key列表的头元素  
+RPOP key  //移除并返回Key列表的尾元素  
+LRANGE key start stop   //返回列表key中指定区间内的元素，区间以偏移量start和stop指定  
+BLPOP key [key ...] timeout   //从key列表表头弹出一个元素，若列表中没有元素，阻塞等待timeout秒，如果timeout=0，一直阻塞等待  
+BRPOP key [key ...] timeout   //从key列表表尾弹出一个元素，若列表中没有元素，阻塞等待timeout秒，如果timeout=0，一直阻塞等待  
+![image](../images/Snipaste_2022-05-01_19-52-42.png)  
 
-* 常用数据结构
-Stack（栈）=LPUSH+LPOP = FILO
-Queue（队列）=LPUSH+RPOP = FIFO
-Blocking MQ（阻塞队列）= LPUSH+BRPOP
-![image](../images/Snipaste_2022-05-01_23-53-46.png)
-three,最后放的，但是最先拿。 分布式环境，就不能用jdk提供的了。
-![image](../images/Snipaste_2022-05-01_23-56-49.png)
+* 常用数据结构  
+Stack（栈）=LPUSH+LPOP = FILO  
+Queue（队列）=LPUSH+RPOP = FIFO  
+Blocking MQ（阻塞队列）= LPUSH+BRPOP  
+![image](../images/Snipaste_2022-05-01_23-53-46.png)  
+three,最后放的，但是最先拿。 分布式环境，就不能用jdk提供的了。  
+![image](../images/Snipaste_2022-05-01_23-56-49.png)  
 
-![image](../images/Snipaste_2022-05-02_00-01-38.png)
-执行一下，消费一下，执行一下，消费一下。timeout为0，阻塞
+![image](../images/Snipaste_2022-05-02_00-01-38.png)  
+执行一下，消费一下，执行一下，消费一下。timeout为0，阻塞  
 
-List应用场景
-* **微博消息和微信公众号消息**
+List应用场景  
+* **微博消息和微信公众号消息**  
 
-关注了MacTalk 备胎说车等大V
-1）MacTalk发微博，消息ID为10018
-LPUSH msg:{诸葛老师-ID} 10018
-2）备胎说车发微博，消息ID为10086
-LPUSH msg:{诸葛老师-ID} 10086
-3）查看最新微博消息
-LRANGE msg:{诸葛老师-ID} 0 4
-![image](../images/Snipaste_2022-05-02_00-08-27.png)
+关注了MacTalk 备胎说车等大V  
+1）MacTalk发微博，消息ID为10018  
+LPUSH msg:{诸葛老师-ID} 10018  
+2）备胎说车发微博，消息ID为10086  
+LPUSH msg:{诸葛老师-ID} 10086  
+3）查看最新微博消息  
+LRANGE msg:{诸葛老师-ID} 0 4  
+![image](../images/Snipaste_2022-05-02_00-08-27.png)  
 这样最新的消息就在最上面，万一用户量特别大，MacTalk粉丝特别多，往几百万个粉丝的列表里发消息。一两千个还是可以的。可以分批发，首先给在线用户发，后面其他用户慢慢在后台发。
 新浪微博的技术方案。pull方式，大V放队列放，其他用户往队列里面拿，发布订阅模式。缺点，如果订阅了很多大V，那就上线了，还是去别人大V的队列里面都拉一下到本地，再去进行排序。
 
-Set结构
-![image](../images/Snipaste_2022-05-02_17-29-37.png)
-[大key是value很大，不是key大]
-sadd key member [member ...] //往集合key中存入元素，元素存在则忽略，若不存在就新建
-srem key member [member ...] //从集合key中删除元素
-smembers key   //获取集合key中所有的元素
-scard key      //获取集合key的元素个数
-sismember key member   //判断member元素是否存在于集合key中
-srandmember key count  //从集合key中选出count个元素，元素不从key中删除
-spop key count         //从集合key中选出count个元素，元素从key中删除
+Set结构  
+![image](../images/Snipaste_2022-05-02_17-29-37.png)  
+[大key是value很大，不是key大]  
+sadd key member [member ...] //往集合key中存入元素，元素存在则忽略，若不存在就新建  
+srem key member [member ...] //从集合key中删除元素  
+smembers key   //获取集合key中所有的元素  
+scard key      //获取集合key的元素个数  
+sismember key member   //判断member元素是否存在于集合key中  
+srandmember key count  //从集合key中选出count个元素，元素不从key中删除  
+spop key count         //从集合key中选出count个元素，元素从key中删除  
 
 * 微信抽奖小程序
 ![image](../images/Snipaste_2022-05-02_17-32-10.png)
