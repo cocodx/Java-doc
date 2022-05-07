@@ -20,3 +20,18 @@ make PREFIX=/home/software/redis_install install
 ![image](../images/Snipaste_2022-05-04_14-12-27.png)
 
 再把redis.conf移动到redis_install文件夹下。
+
+启动redis
+进入bin目录
+```java
+./redis-server ../conf/redis.con
+```
+配置密码
+```java
+requirepass zhuge
+```
+
+使用客户端访问,-a表示使用密码访问。
+```java
+./redis-cli -a zhuge
+```

@@ -5,11 +5,27 @@ String应用场景
 ```java
 SET key value
 GET key
+mset key value [key value] //批量存储字符串键值对
+setnx key value //存入一个不存在的字符串键值对
+mget key [key ...]   //批量获取字符串键值对
+del key [key...]  //删除一个键
+expire key seconds //设置一个键过期时间（秒）
+set key value EX|PX| 多少单位 NX|XX  //setnx和expire一起使用，保证原子性
+ttl key //查看key的过期时间
 ```
+
+原子加减
+```java
+incr readcount //将key的value值加1
+decr readcount //将key的value值减1，减到负数也减
+incrby readcount 100 //将key的value值加上100
+decrby readcount 100 //将key的value值减上100
+```
+![image](../images/Snipaste_2022-05-07_00-03-14.png)
 
 **对象缓存** 
 
-SET user:1 vlaue(json格式)】  
+SET user:1 vlaue(json格式)】  //'{ "name":"Bill Gates", "age":62, "car":null }'
 mset user:1:name zhuge user:1:balance 1888  
 mget user:1:name user:1:balance
 
@@ -203,11 +219,12 @@ redis压测命令 src/redis-benchmark get
 
 Redis单线程为什么还能这么快？
 因为它所有的数据都在内存中，所有的运算都是内存级别的运算，而且单线程避免了多线程的切换性能损耗问题。要小心使用Redis指令，对于那些耗时的指令（比如keys），一定要谨慎使用，一不小心就导致Redis卡顿。
+多路IO复用，有时也称为事件驱动IO（Reactor设计模式）。
 
 Redis单线程如何处理那么多得并发客户端连接？
 Redis的IO多路复用:redis利用epoll来实现IO多路复用，将连接信息和事件当道队列中，依次放到文件事件分排器，事件分排器将事件分发给事件处理器。
 ![image](../images/Snipaste_2022-05-03_03-04-07.png)
-让IO等待过程中，做其他事情。NIO非阻塞
+让IO等待过程中，做其他事情。NIO非阻塞，不是对单个连接能处理的更快，而是在于能处理更多的连接。
 
 查看redis支持的最大连接数，在redis.conf文件中可修改， # maxClients 10000
 config get maxclients
