@@ -47,6 +47,8 @@ Work queue
 发布订阅模式pub sub
 类似于redis的那种
 ![image](../../images/Snipaste_2022-05-08_03-20-53.png)
+短信通知服务
+![image](../../images/Snipaste_2022-05-08_14-44-57.png)
 
 
 **直接交换机** 交换机---routingKey---队列queue
