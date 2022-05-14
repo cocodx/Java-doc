@@ -38,13 +38,13 @@ server：又成为broker，一个项目连接一个virtual host，虚拟机里�
 
 ![image](../../images/rabbitMq%E6%B5%81%E7%A8%8B%E5%9B%BE.png)
 
-Hello world
+##### 1、Hello world
 ![image](../../images/Snipaste_2022-05-08_03-19-14.png)
-Work queue 
+##### 2、Work queue 
 ![image](../../images/Snipaste_2022-05-08_03-19-49.png)
 
 
-发布订阅模式pub sub
+##### 3、发布订阅模式pub sub
 类似于redis的那种
 ![image](../../images/Snipaste_2022-05-08_03-20-53.png)
 短信通知服务
@@ -83,3 +83,9 @@ set_permissions -p / zhangsan ".*" ".*" ".*"
 ```java
 systemctl start rabbitmq-server
 ```
+
+manager的界面地址：
+http://192.168.125.60:15672/#/channels
+
+client和server通信端口
+5672

@@ -14,14 +14,14 @@ Exchange只负责转发，不具备存储消息的能力，因此如果没有任
 ![image](../../images/Snipaste_2022-05-08_20-24-35.png)
 
 
-Routing路由模式
+##### 4、Routing路由模式
 * 队列与交换机的绑定，不能是任意绑定了，而是要指定一个RoutingKey（路由key）
 * 消息的发送方在向Exchange发送消息时，也必须指定消息的RoutingKey
 * Exchange不再把消息交给每一个绑定的队列，而是根据消息的Routing key进行判断，只有队列的Routing key完全一致，才会接收到消息
 
 ![image](../../images/Snipaste_2022-05-08_20-36-26.png)
 
-topic通配符的模式
+##### 5、topic通配符的模式
 交换机类型设置为topic
 ![image](../../images/Snipaste_2022-05-08_21-44-29.png)
 * Topic类型与Direct相比，都是可以根据RoutingKey把消息路由到不同的队列。只不过Topic类型Exchange可以让队列在绑定Routing key的时候使用通配符
@@ -31,7 +31,7 @@ topic通配符的模式
 * 通配符规则：# 匹配一个或多个词，* 匹配不多不少恰好一个词，例如：item.# 能够匹配
 item.insert.abc 或者 item.insert ， item.* 只能匹配 item.insert,item.* 只能匹配 item.insert
 
-消息确认机制：
+####消息确认机制：
 rabbitmq在传递消息的过程中充当了代理人（Broker）的角色，那生产者（Producer）怎样知道消息被正确投递到Broker了呢？
 Rabbitmq提供了监听器（Listener）来接收消息投递的状态。
 消息确认涉及两种状态：Confirm与Return
@@ -42,4 +42,8 @@ Confirm代表生产者将消息送到Broker时产生的状态，后续会出现�
 
 Return代表消息被Broker正常接收后（ack），但Broker没有对应的队列进行投递时产生的状态，消息被退回给生产者。
 
-spring整合rabbitmq
+![image](../../images/Snipaste_2022-05-14_17-15-54.png)
+
+延时队列：rabbitmq不支持
+ttl+死信队列=延时队列
+界面设置virtual_host死信队列问题
