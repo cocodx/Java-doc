@@ -130,3 +130,8 @@ yum -y install xinetd.x86_64
 ![image](../../images/Snipaste_2022-05-18_02-28-14.png)
 
 以5个文件轮训的方式，去记录，
+
+总结：
+mysql的账号密码：root password
+mysql用户 密码 1q2w3e4r
+service mysql start
