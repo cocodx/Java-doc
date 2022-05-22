@@ -1,0 +1,2 @@
+1、学习golang 尚硅谷golang 到20讲
+2，复习rabbitmq 再听一讲kafka
