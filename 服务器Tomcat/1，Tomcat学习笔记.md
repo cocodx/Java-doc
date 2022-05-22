@@ -33,11 +33,9 @@ Tomcat源码里面是写死的。
 ![image](../images/Snipaste_2022-04-28_00-00-30.png)
 ![image](../images/Snipaste_2022-04-28_00-01-08.png)
 
-Pipeline 管道 value 阀门
-
 Engine 管理Host=》List<Host>
     List(Host)
-    Pipeline
+    Pipeline Pipeline 管道 value 阀门  
 
 Host标签表示，虚拟的主机。可以定义多个Host，name不同。
     List(Context)
@@ -106,10 +104,10 @@ endpoint先根据io模型拿到数据，再去解析数据
 Tomcat取数据，肯定跟IO模型有关
 BIO
 NIO
-APR-----Apache IO工具，跟NIO很像，取数据的方式。                                                                                                                                                                        
+APR-----Apache IO工具，跟NIO很像，取数据的方式。
+
 ![image](../images/Snipaste_2022-04-28_03-20-46.png)
     
 3发送数据
 
-
-Tomcat的server.xml里面的Connector标签
+Tomcat的server.xml里面的Connector标签  
