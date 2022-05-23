@@ -1,0 +1,11 @@
+1. aqs
+1. 适配器模式（HashSet不就是适配HashMap吗）
+1. mysql的explain看看
+1. mybatis看看
+1. springboot的starter看看
+1. spring的aop忘记了看看
+1. ConcurrentHashMap看看
+1. 搞懂邮箱里面的模块mi，sp认证，addr，app，反垃圾网关，邮件归档，Domino 邮件迁移，smtp服务器收发信，vasp消息推送，
+主键id分发服务，apollo管理配置中心，survey问卷调查服务。
+
+消息推送 en-> mi -> vasp

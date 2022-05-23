@@ -1,0 +1,2 @@
+Java里有一个叫Stack的类，却没有叫做Queue的类。当需要使用栈时，Java已不推荐使用Stack，而是推荐使用高效的ArrayDeque，既然Queue只是一个接口，当需要使用队列时首选ArrayDeque，其次是LinkedList
+

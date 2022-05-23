@@ -1,3 +1,3 @@
-1、学习golang 尚硅谷golang 到20讲
-2，复习rabbitmq 再听一讲kafka
-3，认真学习英语入门课程
+1、学习golang 尚硅谷golang 到20讲 完成
+2，复习rabbitmq 再听一讲kafka  没完成
+3，认真学习英语入门课程 没完成
