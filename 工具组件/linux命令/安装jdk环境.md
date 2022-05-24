@@ -1,4 +1,5 @@
 在前置条件解压，jdk的gz包之后。配置环境变量
+tar -zxvf jdk-8u211-linux-x64.tar.gz  
 
 ##### 1.1 记住jdk的路径
 > /home/software/jdk1.8.0_211
