@@ -16,17 +16,18 @@
 新生代和老年代
 
 #### 垃圾收集器
-##### Serial收集器(-XX:+UseSerialGC -XX:+UseSerialOldGC)
+##### Serial收集器(-XX:+UseSerialGC -XX:+UseSerialOldGC)[Serial,SerialOld。新生代有Serial，老年代有SerialOld] 
+串行收集
 Serial 串行收集器，单线程，在进行垃圾收集工作的时候，必须暂停其他所有的工作线程（Stop the world），直到它收集结束。
 简单而高效。
 Serial在新生代是使用复制算法，老年代采用标记-整理算法
 在多核计算器就不太合适了。
 
-##### ParNew收集器(-XX:+UseParNewGC)
+##### ParNew收集器(-XX:+UseParNewGC)[ParNew。新生代有ParNew] 
 ParNew，默认的收集线程数跟CPU核数相同，也可以用参数-XX：ParallelGCThreads 指定收集线程数。
 新生代是使用复制算法，老年代采用标记-整理算法
 
-##### Parallel收集器(-XX:+UseParallelGC(年轻代),- XX:+UseParallelOldGC(老年代)
+##### Parallel收集器(-XX:+UseParallelGC(年轻代),- XX:+UseParallelOldGC(老年代)[Parallel,ParallelOld。新生代有Parallel，老年代有ParallelOld] 
 Parallel Scavenge 收集器类似于ParNew 收集器，是Server 模式（内存大于2G，2个cpu）下的 默认收集器，那么它有什么特别之处呢？
 所谓吞吐量就是CPU中用于运行用户代码的时 间与CPU总消耗时间的比值。
 Parallel Scavenge收集器提供了很多参数供用户找到最合适的停顿 时间或最大吞吐量，如果对于收集器运作不太了解的话，可以选择把内存管理优化交给虚拟机去完 成也是一个不错的选择。
@@ -52,4 +53,10 @@ CMS的相关参数：
 
 ##### G1收集器
 
+整堆收集器
 
+
+#### 来点真实的
+项目中，用的收集器一般是ParNew+CMS.自测过使用G1替换前者，发现访问javaweb项目都慢很多。
+jstat -gc pid 毫秒数
+去查看，FGC和YGC次数。

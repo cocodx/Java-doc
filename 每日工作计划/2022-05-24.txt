@@ -9,3 +9,6 @@
 主键id分发服务，apollo管理配置中心，survey问卷调查服务。
 
 消息推送 en-> mi -> vasp
+
+今天用下 ShardingSphere 做分库分表
+springboot集成apollo
