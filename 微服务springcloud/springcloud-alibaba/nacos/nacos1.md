@@ -93,6 +93,10 @@ nacos的健康实例是怎么设置的？
 删除持久节点健康实例，需要调openapi接口，再去删除。
 http://127.0.0.1:8848/nacos/v1/ns/instance?serviceName=security-order&ip=192.168.40.141&port=8965&clusterName=DEFAULT&ephemeral=false   【delete】  
 
+在client的yml里面配置namespace属性，需要在server里面也创建对应的命令空间，填上namespace的id。  
+
+不要在删除这个个人建的namespace之后呢，再去在client继续有namespace对应的id，会报错（临时实例）已经为ture，不能为false，nacos还是有点小问题  
+
 
 
 启动nacos-server的命令
