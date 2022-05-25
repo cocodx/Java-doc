@@ -90,6 +90,8 @@ spring:
 ```
 健康状态是，server跟client保持心跳连接  
 nacos的健康实例是怎么设置的？  
+删除持久节点健康实例，需要调openapi接口，再去删除。
+http://127.0.0.1:8848/nacos/v1/ns/instance?serviceName=security-order&ip=192.168.40.141&port=8965&clusterName=DEFAULT&ephemeral=false   【delete】  
 
 
 
