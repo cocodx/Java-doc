@@ -1,3 +1,6 @@
+D:\Program Files\apache-jmeter-5.2.1\bin
+bin目录下得startup.sh
+
 1,新建线程组
 ![image](../../images/Snipaste_2022-05-06_01-49-17.png)
 2,添加线程
