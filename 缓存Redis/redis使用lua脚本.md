@@ -28,7 +28,7 @@ set nxpxKey 1 px 100000 NX
 ```
 redis操作lua脚本
 ```java
-eval "eval "if redis.call('setnx',KEYS[1],ARGV[1]) == 1 then redis.call('expire',KEYS[1],ARGV[2]) return 1 else return 0 end" 1 nxpxKey nxpxKey-Value 100000"
+eval "if redis.call('setnx',KEYS[1],ARGV[1]) == 1 then redis.call('expire',KEYS[1],ARGV[2]) return 1 else return 0 end" 1 nxpxKey nxpxKey-Value 100000
 ```
 冒号结尾 1 表示：keys只有一个参数（keys主要是放key的）  
 args 主要是放 其他参数的  
