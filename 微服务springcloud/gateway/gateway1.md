@@ -35,3 +35,61 @@ Gateway的工作原理和zuul差不多，最大的区别就是Gateway的Filter�
 ![image](../../images/Snipaste_2022-05-28_03-19-22.png)
 如果请求与网关程序的路由匹配，则该请求就会被发送到网关Web处理程序，此时处理程序运行特定的请求过滤器链。
 过滤器之间用虚线分开的原因是可能会在发送代理请求的前后执行逻辑。所有pre过滤器先执行，代理请求执行完成后，执行post过滤器逻辑
+
+#### after匹配
+拦截在after之后的请求，发送到目标uri里面去.在这个时间之前发送的请求都404找不到
+生成ZonedDateTime类型的数据
+```java
+ZonedDateTime zonedDateTime = ZonedDateTime.now();//默认时区
+//用指定时区获取时间
+ZonedDateTime zonedDateTime1 = ZonedDateTime.now(ZoneId.of("Asia/Shanghai"));
+System.out.println(zonedDateTime);
+System.out.println(zonedDateTime1);
+```
+
+```java
+spring:
+  application:
+    name: gateway
+
+  cloud:
+    gateway:
+      routes:
+        - id: user-service
+          uri: http://localhost:8965/produce/get
+          predicates:
+#          - Path=/produce/get
+            # 匹配在指定的日期时间之后发生的请求 入参是ZonedDateTime类型
+          - After=2022-05-28T03:30:46.136+08:00[Asia/Shanghai]
+```
+
+#### cookie匹配
+![image](../../images/Snipaste_2022-05-29_03-34-02.png)
+```java
+- id: cookie-service
+  uri: http://localhost:8965
+  predicates:
+    - Cookie=userName, fox
+```
+访问url：http://localhost:10010/produce/get
+
+#### Header匹配
+```java
+- id: cookie-service
+  uri: http://localhost:8965
+  predicates:
+#            - Cookie=userName, fox
+    - Header=X-Request-Id, \d+
+```
+![image](../../images/Snipaste_2022-05-29_03-37-33.png)
+
+#### 路径匹配
+```java
+- id: cookie-service
+  uri: http://localhost:8965
+  predicates:
+#            - Cookie=userName, fox
+#            - Header=X-Request-Id, \d+
+    - Path=/produce/**
+```
+![image](../../images/Snipaste_2022-05-29_03-40-10.png)
