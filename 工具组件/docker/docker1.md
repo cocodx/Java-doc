@@ -1,5 +1,6 @@
 #### 什么是docker？  
 
+![image](../../images/docker.png)
 docker一个软件，安装在linux系统里面边的，通过docker我可以去下载mysql，reids，mq，很轻松下载。这些被下载叫镜像。docker可以绑定数据卷，可以移植到其他linux机器上。
 关键作用：可以在多个环境以相同的配置环境运行。
 
