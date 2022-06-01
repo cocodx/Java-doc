@@ -8,10 +8,14 @@
 
 架构：client、config-service、admin-service、portal-service、Meta-server（封装用来访问eureka）
 ![image](../../images/Snipaste_2022-05-20_02-19-07.png)
+
+Apollo基础模型：用户在管理平台修改了配置，那么配置中心通知Apollo客户端有配置更新，Apollo客户端从配置中心拉取最新的配置、更新本地配置并通知到应用
+![image](../../images/Snipaste_2022-06-01_21-20-13.png)
+
 meta-server：就是把eureka给封装了一下。返回ip端口。
 dubbo就是用zk获取ip端口
 
-config-service：提供配置的读取、推送功能。client
+* config-service：提供配置获取接口、提供配置推送接口、服务于Apollo客户端。[]
 admin-service：修改、发布功能。prortal
 eureka：提供服务注册和发现，目前eureka部署在config-service一个jvm进程中。
 在eureka之上，架了一层meta server用于封装eureka服务发现接口。
