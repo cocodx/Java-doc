@@ -26,3 +26,148 @@ Import用法，大致分为三种
 @Component，@Configuration，@Bean，@ConditionOnBean，@Import，@DeferedImportSelector
 
 ？注解@ConditionOnBean(SqlsessionFactory.class)
+
+
+1、启动里面的main方法就可以了！！！
+```java
+@SpringBootApplication
+public class SimpleSpringbootApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(SimpleSpringbootApplication.class, args);
+    }
+
+}
+```
+
+@SpringBootApplication里面的注解
+```java
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Inherited
+@SpringBootConfiguration   就是@Configuration
+@EnableAutoConfiguration  
+@ComponentScan(excludeFilters = { @Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class),   默认会扫描当前类所在的包
+		@Filter(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class) })
+public @interface SpringBootApplication {
+```
+
+@EnableAutoConfiguration 开启自动装配功能
+```java
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Inherited
+@AutoConfigurationPackage   把当前配置类所在包保存在BasePackages的Bean中。供Spring内部使用
+@Import(AutoConfigurationImportSelector.class)
+public @interface EnableAutoConfiguration {
+```
+
+再看看这个注解里面的代码  @AutoConfigurationPackage
+```java
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Inherited
+@Import(AutoConfigurationPackages.Registrar.class)
+public @interface AutoConfigurationPackage {
+
+	/**
+	 * Base packages that should be registered with {@link AutoConfigurationPackages}.
+	 * <p>
+	 * Use {@link #basePackageClasses} for a type-safe alternative to String-based package
+	 * names.
+	 * @return the back package names
+	 * @since 2.3.0
+	 */
+	String[] basePackages() default {};
+
+	/**
+	 * Type-safe alternative to {@link #basePackages} for specifying the packages to be
+	 * registered with {@link AutoConfigurationPackages}.
+	 * <p>
+	 * Consider creating a special no-op marker class or interface in each package that
+	 * serves no purpose other than being referenced by this attribute.
+	 * @return the base package classes
+	 * @since 2.3.0
+	 */
+	Class<?>[] basePackageClasses() default {};
+
+}
+```
+看起来就是注册一个保存当前配置类所在包的一个Bean  
+
+在自动配置注解里面EnableAutoConfiguration，使用import导入了一个类
+@Import(AutoConfigurationImportSelector.class)
+
+![image](../../images/Snipaste_2022-06-06_06-50-40.png)  
+
+spring内部在解析@Import注解时，会调用getAutoConfigurationEntry方法。扫描具有
+META-INF/spring.factories文件的jar包。
+
+org.springframework.boot.autoconfigure.AutoConfigurationImportSelector#getAutoConfigurationEntry
+```java
+/**
+    * Return the {@link AutoConfigurationEntry} based on the {@link AnnotationMetadata}
+    * of the importing {@link Configuration @Configuration} class.
+    * @param annotationMetadata the annotation metadata of the configuration class
+    * @return the auto-configurations that should be imported
+    */
+protected AutoConfigurationEntry getAutoConfigurationEntry(AnnotationMetadata annotationMetadata) {
+    if (!isEnabled(annotationMetadata)) {
+        return EMPTY_ENTRY;
+    }
+    AnnotationAttributes attributes = getAttributes(annotationMetadata);
+    //从META-INF/spring.factories中获取候选的自动配置类
+    List<String> configurations = getCandidateConfigurations(annotationMetadata, attributes);
+    //排重
+    configurations = removeDuplicates(configurations);
+    //根据EnableAutoConfiguration注解中的属性，获取不需要自动装配的类名单
+    Set<String> exclusions = getExclusions(annotationMetadata, attributes);
+    // 根据:@EnableAutoConfiguration.exclude
+    // @EnableAutoConfiguration.excludeName
+    // spring.autoconfigure.exclude 进行排除
+    checkExcludedClasses(configurations, exclusions);
+    // exclusions 也排除
+    configurations.removeAll(exclusions);
+    // 通过读取spring.factories 中的OnBeanCondition\OnClassCondition\OnWebApplicationCondition进行过滤
+    configurations = getConfigurationClassFilter().filter(configurations);
+    // 这个方法是调用实现了AutoConfigurationImportListener 的bean.. 分别把候选的配置名单，和排除的配置名单传 进去做扩展
+    fireAutoConfigurationImportEvents(configurations, exclusions);
+    return new AutoConfigurationEntry(configurations, exclusions);
+}
+```
+
+任何一个springboot应用，都会引入spring-boot-autoconfigure，而spring.factories文件就在该包下面。spring.factories文件是key=value形式，多个value时使用,隔开，改文件中定义了初始化，监听器等信息
+```java
+# Logging Systems
+org.springframework.boot.logging.LoggingSystemFactory=\
+org.springframework.boot.logging.logback.LogbackLoggingSystem.Factory,\
+org.springframework.boot.logging.log4j2.Log4J2LoggingSystem.Factory,\
+org.springframework.boot.logging.java.JavaLoggingSystem.Factory
+
+# PropertySource Loaders
+org.springframework.boot.env.PropertySourceLoader=\
+org.springframework.boot.env.PropertiesPropertySourceLoader,\
+org.springframework.boot.env.YamlPropertySourceLoader
+
+# ConfigData Location Resolvers
+org.springframework.boot.context.config.ConfigDataLocationResolver=\
+org.springframework.boot.context.config.ConfigTreeConfigDataLocationResolver,\
+org.springframework.boot.context.config.StandardConfigDataLocationResolver
+
+# ConfigData Loaders
+org.springframework.boot.context.config.ConfigDataLoader=\
+org.springframework.boot.context.config.ConfigTreeConfigDataLoader,\
+org.springframework.boot.context.config.StandardConfigDataLoader
+
+# Application Context Factories
+org.springframework.boot.ApplicationContextFactory=\
+org.springframework.boot.web.reactive.context.AnnotationConfigReactiveWebServerApplicationContext.Factory,\
+org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext.Factory
+
+# Run Listeners
+org.springframework.boot.SpringApplicationRunListener=\
+org.springframework.boot.context.event.EventPublishingRunListener
+```
