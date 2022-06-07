@@ -1,0 +1,77 @@
+public class LinkedListDemo {
+
+
+    public static void main(String[] args) {
+        LinkedNode linkedNode1 = new LinkedNode(1,"蒋梦华","天选华子");
+        LinkedNode linkedNode2 = new LinkedNode(2,"张乐希","大憋");
+        LinkedNode linkedNode3 = new LinkedNode(4,"章凌逗","章鱼哥");
+        LinkedNode linkedNode4 = new LinkedNode(3,"刘刚","qingclean");
+
+        LinkedNodeList linkedNodeList = new LinkedNodeList();
+        linkedNodeList.add(linkedNode1);
+        linkedNodeList.add(linkedNode2);
+        linkedNodeList.add(linkedNode3);
+        linkedNodeList.add(linkedNode4);
+
+        linkedNodeList.list();
+
+    }
+
+    public static class LinkedNodeList{
+        LinkedNode head = new LinkedNode(0,"","");
+
+        //往链表里面添加节点,找到这个链表的最后一个节点
+        public void add(LinkedNode linkedNode){
+            LinkedNode temp = head.next;
+            if (temp==null){
+                head.next = linkedNode;
+                return;
+            }
+            while (true){
+                if (temp.next==null){
+                    temp.next = linkedNode;
+                    break;
+                }else{
+                    temp = temp.next;
+                }
+            }
+        }
+
+        //对链表进行打印
+        public void list(){
+            LinkedNode temp = head.next;
+            if (temp==null){
+                return;
+            }
+            while (true){
+                System.out.println(temp);
+                temp = temp.next;
+                if (temp==null){
+                    break;
+                }
+            }
+        }
+    }
+
+    private static class LinkedNode{
+        public int id;
+        public String name;
+        public String nickName;
+        public LinkedNode next;
+
+        public LinkedNode(int id, String name, String nickName) {
+            this.id = id;
+            this.name = name;
+            this.nickName = nickName;
+        }
+
+        @Override
+        public String toString() {
+            return "LinkedNode{" +
+                    "id=" + id +
+                    ", name='" + name + '\'' +
+                    ", nickName='" + nickName + '\'' +
+                    '}';
+        }
+    }
+}
