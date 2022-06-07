@@ -24,3 +24,8 @@ docker pull 镜像名称:版本号
 docker rmi 镜像id #删除指定本地镜像
 docker rmi `docker images-q` #删除所有本地镜像
 ```
+
+制作镜像，
+```java
+docker commit [容器id] [容器name:容器版本号version]
+```

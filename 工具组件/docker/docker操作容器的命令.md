@@ -46,3 +46,5 @@ docker rm `docker ps -aq`  #删除所有的容器
 ```java
 docker inspect name[容器名称]
 ```
+
+给容器做端口映射，一般就是在run命令，重新添加端口映射。
