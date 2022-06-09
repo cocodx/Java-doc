@@ -1,0 +1,5 @@
+最近重点还是springcloud
+【nacos很容易，gateway跟nacos整合一下】
+
+1,gateway视频过一遍
+2,看看nacos集群
