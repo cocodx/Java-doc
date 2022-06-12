@@ -7,3 +7,4 @@
 #### FactoryBean：
 FactoryBean是一个工厂类接口，用户可以实现该接口定制实例化Bean的逻辑。
 一般Spring是通过反射机制利用的class属性指定实现类实例化Bean，某些情况下，实例化Bean过程很复杂。
+![image](../../images/Snipaste_2022-06-12_10-32-59.png)

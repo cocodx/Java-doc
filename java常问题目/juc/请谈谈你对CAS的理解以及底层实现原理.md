@@ -27,3 +27,6 @@ i.incrementAndGet();
 update xxxxx set count={count},version={version+1} where id={id} and version={version};
 
 ![image](../../images/Snipaste_2022-05-09_01-37-37.png)
+
+hosts文件位置
+依次双击打开“windows”→“System32”→“drivers”→“etc”。
