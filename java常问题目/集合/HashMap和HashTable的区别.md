@@ -1,8 +1,8 @@
 HashMap 线程不安全，运行速度快
-允许存储null
+允许存储null，key也可以为null
 
 HashTable 线程安全，运行速度慢
-不允许存储null
+不允许存储null，并且key和value都不能为空
 
 HashTable里面都添加了synchronized关键字保证线程同步，相对而言，HashMap性能会高一些。
 hashMap是对Map接口的实现，HashTable实现了Map接口和Dictonary抽象类。  
