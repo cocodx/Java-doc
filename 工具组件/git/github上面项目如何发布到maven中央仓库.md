@@ -5,3 +5,10 @@
 1. 注册账号<https://issues.sonatype.org/secure/Signup!default.jspa>
 1. 创建一个ussue，new project类型
 1. 配置仓库地址，和server账号 进行中
+1. 安装PGP<https://www.gnupg.org/download/>
+![image](../../images/Snipaste_2022-07-02_10-38-37.png)
+
+
+
+*** 
+https://issues.sonatype.org/browse/OSSRH-82262
