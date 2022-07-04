@@ -16,3 +16,6 @@ https://issues.sonatype.org/browse/OSSRH-82262
 修改gourpId为**<io.github.cocodex>**
 在自己的github上，新建仓库命为<https://github.com/cocodx/OSSRH-82268>让管理员验证
 
+
+<https://juejin.cn/post/7089301165929660446>
+
