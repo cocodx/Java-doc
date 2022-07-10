@@ -11,6 +11,7 @@ https://www.webfx.com/tools/emoji-cheat-sheet/
 
 这么牛逼的啊🐅
 feature(工具组件/gradle):gradle笔记✈️
+feature(gulimall-product):平台属性-规格参数 & 列表 补全字段 所属分组&所属分类🌅
 🐞图标
 🚀功能
 🏖️🎡🚣 Person Rowing Boat
