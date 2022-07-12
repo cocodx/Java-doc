@@ -19,6 +19,8 @@ yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce
 yum install -y docker-ce
 
 docker -v
+
+systemctl enable docker --now
 ``` 
 
 #### docker架构
@@ -36,3 +38,17 @@ container:容器是图像的可运行实例。您可以使用 Docker API 或 CLI
 默认情况下，一个容器与其他容器及其主机的隔离相对较好。您可以控制容器的网络、存储或其他底层子系统与其他容器或主机的隔离程度。
 
 容器由其映像以及您在创建或启动它时提供给它的任何配置选项定义。当容器被移除时，任何未存储在持久存储中的状态更改都会消失。  
+
+
+***
+
+虚拟化技术：
+1，基础镜像GB级别
+2，创建使用稍微复杂
+
+
+容器化技术：
+1、基础镜像MB级别
+3，隔离性强
+4，启动速度秒级
+5，移植与分享方便
