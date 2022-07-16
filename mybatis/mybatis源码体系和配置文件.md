@@ -1,7 +1,7 @@
 ![image](../images/mybatis.png)
 持久层的ORM框架，使用简单。手写SQL语句，比较灵活。自动化、移植性不高，迁移新的数据库要改sql语句，半自动ORM框架。
 
-ORM == Object Relational Mapping
+ORM == Object R-Relational Mapping
 ![image](../images/Snipaste_2022-05-23_22-21-56.png)
 
 任何ORM框架，执行数据库操作，都离不开JDBC。（heberinate全ORM框架，根本不用写sql语句，只要用配置维护好表的关系）

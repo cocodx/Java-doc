@@ -44,6 +44,7 @@ sequenceDiagram
     Executor-->>Sql session: 返回查询结果
     Sql session-->>Client: 返回Cache查到的值
 ```
+
 ##### 缓存未命中
 
 ```mermaid
