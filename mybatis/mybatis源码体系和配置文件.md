@@ -15,3 +15,11 @@ JDBC弊端：
 1. jdbc设置参数麻烦，还要弄顺序，参数中间去了一个，后面都要跟着去掉，就像链表一下，前进后退。参数设置非常不方便，mybatis通过动态sql，获取我们设置的值，动态sql标签。
 1. jdbc执行查询的时候，解析返回结果集，很麻烦，mybatis设置resultType，resultMap进行映射。
 1. JDBC没有提供缓存【减轻数据库的压力】，mybatis提供了一二级缓存解决。
+
+
+XPath：mybatis里面用来解析xml，是Javax标准库提供的。
+Node：节点。XNode对Node进行封装。
+
+PooledDataSource mybatis自己实现的连接池
+
+Configuration 对象，所有的配置都放到这个类里面。
