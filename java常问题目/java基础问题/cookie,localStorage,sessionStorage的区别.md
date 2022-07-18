@@ -1,0 +1,11 @@
+Cookie，大小4KB，是1993网景发明，主要用途有保存登录信息，比如你登录某个网站市场可以看到“记住密码”，这
+通常在Cookie库中存入一段辨别用户身份的数据来实现的。每次都会携带在HTTP头中，如果使用cookie保存过多数据，
+会带来性能问题。
+
+localStorage，5MB，是HTML5标准中新加入的技术，早在IE6时代，就有一个userData的东西用于本地存储，当时考虑到
+浏览器兼容性，更通用的方案使用Flash，而如今，localStorage被大多数浏览器所支持，如果你的网站需要支持IE6+，
+那以userData作为你的ployfill的方案是种不错的选择。
+
+sessionStorage，5MB与localStorage的接口类似，但保存数据的生命周期与localStorage不同。后端开发都知道session，
+会话，而sessionStorage是一个前端的概念，它只是可以将一部分数据在当前会话中保存下来，刷新页面数据依旧存在。
+但当页面关闭之后，sessionStorage中的数据就会被清空。
