@@ -11,3 +11,5 @@ mybatis-plus中，封装IService接口，进一步封装CRUD采用get查询单�
 
 泛型T，为任意实体对象
 
+IService和ServiceImpl
+
