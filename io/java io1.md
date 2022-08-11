@@ -62,3 +62,16 @@ System.out.println(file3);
 ```java
 new File(File parent, String child)
 ```
+
+![image](https://user-images.githubusercontent.com/97614802/184074992-e9f9f631-9c87-4f65-919d-e198c8d45957.png)
+
+```java
+//获取file的绝对路径,无论构造方法的路径是绝对的，还是相对的
+System.out.println(file.getAbsolutePath());;
+//获取构造方法中，传入的路径
+file.getPath();
+//获取构造方法，传入路径的结尾部分，要么是文件，要么是文件夹
+file.getName();
+//获取的是，构建方法指向的文件的大小，文件夹是没有大小的概念的。不能获取文件夹大小length为0
+file.length();
+```
