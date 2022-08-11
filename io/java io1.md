@@ -28,3 +28,18 @@ System.out.println(file1.getPath());
 > D:\code\ideaProjects\springboot-postgresql\resources\shiro.ini 
 > 
 > resources\shiro.ini
+
+##### File类构造方法
+
+pathName可以是绝对路径，也可以是相对路径
+
+路径可以是文件结尾，也可以是文件夹结尾
+
+路径可是存在，路径也可以是不存在
+
+创建File对象，只是把字符串路径封装为file对象，不考虑路径的真假情况
+
+
+```java
+File file = new File(String pathName);
+```
