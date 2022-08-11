@@ -32,3 +32,17 @@ DNS Server域名服务器。
 在实际的过程中，可能Name Server有多级，或者有GTM来负载均衡控制。
 
 ![image](https://user-images.githubusercontent.com/97614802/184052746-6f29c0da-91b8-4913-b11b-7a8b64511ef8.png)
+
+##### 几种域名解析方式
+
+* A记录，A代表的Address，用来指定域名对应的IP地址，如将item.taobao.com指定到115.238.23.xxx，将switch.taobao.com指定到121.14.24.xxx。A记录可以将多个域名解析一个IP地址，但是不能将一个域名解析到多个IP地址。
+
+* MX记录，表示的是Mail Exchange，就是可以将某个域名下的邮件服务器指定自己的Mail Server，如taobao.com的域名的A
+记录IP地址是115.234.23.xxx,如果将MX记录设置为115.234.23.xxx，既xxx@taobao.com的邮件路由，DNS会将邮件发送到
+115.234.23.xxx所在的服务器，而正常通过Web请求的话，仍然解析到A记录的的IP地址。
+
+* CNAME记录，全称是Canonical Name（别名解析）。所谓的别名解析就是可以为一个域名设置一个或者多个别名。如将taobao.com解析到xulingbo.net,将srcfan.com解析到xulingbo.net。其中xulingbo.net分别是taobao.com和srcfan.com的别名。
+
+* NS记录，为某个域名指定DNS解析服务器， 也就是这个域名有指定的IP地址的DNS服务器去解析。
+
+* TXT记录，为某个主机名或者域名设置说明
