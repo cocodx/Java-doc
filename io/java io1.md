@@ -12,3 +12,19 @@ System.out.println(File.pathSeparator);
 //文件名称分隔符 windows\ linxu/
 System.out.println(File.separator);
 ```
+
+##### 路径-相对路径-绝对路径
+
+相对路径：简化的路径，相对于当前项目的根目录,路径简化书写。
+
+路径不区分大小写，windows使用反斜杠，转义字符，两个反斜杠，代表一个普通的字符
+
+```java
+File file1 = new File("resources\\shiro.ini");
+System.out.println(file1.getAbsolutePath());
+System.out.println(file1.getPath());
+```
+打印结果如下
+> D:\code\ideaProjects\springboot-postgresql\resources\shiro.ini 
+> 
+> resources\shiro.ini
