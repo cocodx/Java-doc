@@ -63,6 +63,8 @@ System.out.println(file3);
 new File(File parent, String child)
 ```
 
+##### 获取功能的方法
+
 ![image](https://user-images.githubusercontent.com/97614802/184074992-e9f9f631-9c87-4f65-919d-e198c8d45957.png)
 
 ```java
@@ -74,4 +76,34 @@ file.getPath();
 file.getName();
 //获取的是，构建方法指向的文件的大小，文件夹是没有大小的概念的。不能获取文件夹大小length为0
 file.length();
+```
+
+##### 判断功能的方法
+
+```java
+//判断功能的方法
+file.exists();
+//判断文件夹的方法
+file.isDirectory();
+//判断文件的方法
+file.isFile();
+```
+
+##### File类创建删除功能的方法
+```java
+//当且仅当具有该名称的文件尚不存在时，创建一个新的空文件。创建文件的路径，必须存在
+public boolean createNewFile()
+//删除由file表示的文件或目录
+public boolean delete()
+//创建由file表示的目录
+public boolean mkdir()
+//创建由file表示的目录，还有父目录
+public boolean mkdirs()
+```
+
+##### File类遍历
+```java
+//遍历构造方法中给出的目录，会抛出空指针异常，【如果是文件，如果目录不存在】
+public String[] list();
+public File[] listFiles();
 ```
