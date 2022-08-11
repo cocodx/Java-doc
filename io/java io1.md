@@ -43,3 +43,22 @@ pathName可以是绝对路径，也可以是相对路径
 ```java
 File file = new File(String pathName);
 ```
+
+父路径和子路径可以单独书写，非常灵活，都可以变化
+
+```java
+File file2 = new File("d:", "a.txt");
+File file3 = new File("d:", "b.txt");
+System.out.println(file2);
+System.out.println(file3);
+```
+打印如下
+> d:a.txt
+> d:b.txt
+
+父路径和子路径可以单独书写，非常灵活，都可以变化
+使用File作为父对象，非常灵活，可以使用File的方法对路径进行一些操作，再使用路径操作对象
+
+```java
+new File(File parent, String child)
+```
