@@ -1,1 +1,0 @@
-![image](../../images/Snipaste_2022-07-06_20-52-18.png)

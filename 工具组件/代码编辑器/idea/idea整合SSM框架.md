@@ -2,7 +2,7 @@
 1. 在src/main下新建webapp目录，在里面新建子目录WEB-INF，在里面新建web.xml文件
 1. 在idea打开项目结构设置，添加web模块。保存即可。
 
-![image](../../images/Snipaste_2022-08-01_00-59-03.png)
+![image](../../../images/Snipaste_2022-08-01_00-59-03.png)
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -16,10 +16,10 @@
 </web-app>
 ```
 
-![image](../../images/Snipaste_2022-08-01_01-10-31.png)
+![image](../../../images/Snipaste_2022-08-01_01-10-31.png)
 
-![image](../../images/Snipaste_2022-08-01_01-11-28.png)
+![image](../../../images/Snipaste_2022-08-01_01-11-28.png)
 
-![image](../../images/Snipaste_2022-08-01_01-12-15.png)
+![image](../../../images/Snipaste_2022-08-01_01-12-15.png)
 
 
