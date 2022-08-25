@@ -37,3 +37,18 @@ int的返回值，每次读取到的有效字节数
 
 以上读取是一个重复的过程，可以使用循环优化，所以使用while循环，while循环结束的条件，读取到-1结束。
 
+#### 练习，复制文件
+```java
+public static void main(String[] args)throws Exception {
+    FileOutputStream fileOutputStream = new FileOutputStream("E:\\11.xlsx");
+    FileInputStream fileInputStream = new FileInputStream("F:\\11.xlsx");
+    byte[] bytes = new byte[1024];
+    int len;
+    while (( len = fileInputStream.read(bytes))!=-1){
+        fileOutputStream.write(bytes);
+    }
+    fileInputStream.close();
+    fileOutputStream.close();
+}
+```
+
