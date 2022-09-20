@@ -19,3 +19,8 @@ https://jrebel.qekang.com/738b776f-6cc9-4ac5-9574-960a057392db
 
 ![image](https://user-images.githubusercontent.com/97614802/191195454-f179851a-60c3-43dd-b240-091f2e6b540b.png)
 
+设置JRebel的console的日志输出，设置为Debug，不然info是基本没有打印的
+
+![image](https://user-images.githubusercontent.com/97614802/191199317-c7f646a7-4690-4768-9cab-71937c86e1ae.png)
+
+
