@@ -1,4 +1,11 @@
 ```yml
+springdoc:
+  packages-to-scan: com.yamcanda.icube.web.controller
+  api-docs:
+    enabled: true
+#    path: /doc
+#    groups:
+#      enabled: true
   swagger-ui:
     enabled: true
     path: /docs
@@ -18,4 +25,5 @@
     - {group: 'eq', paths-to-match: '/eq/**'}
     - {group: 'bpm', paths-to-match: '/bpm/**'}
     - {group: 'flowable', paths-to-match: '/flowable/**'}
+
 ```
