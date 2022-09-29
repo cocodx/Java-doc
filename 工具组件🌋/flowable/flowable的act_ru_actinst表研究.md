@@ -19,3 +19,19 @@
 
 
 end_time_ 是空的呢，就表示没有审批。
+
+|字段|备注|
+|-|-|
+|id_|主键|
+|rev_|版本|
+|proc_def_id_|流程定义id|
+|proc_inst_id_|流程实例id|
+|execution_id_|暂时不清楚|
+|act_id_|xml里面。对应的id|
+|task_id_|暂时不清楚|
+|act_type_|类型，parallelGateway表示并行网关，userTask表示用户任务|
+|start_time_|开始时间|
+|end_time_|结束时间|
+|end_time_|结束时间|
+|duration_|!!!这是啥，是唯一的吗|
+|transaction_order_|感觉是事务id|
