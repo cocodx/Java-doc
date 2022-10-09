@@ -38,3 +38,25 @@ PT1D 表示一天后
 ```
 
 在用户任务中，添加边界定时任务，还在用户任务中，添加执行监听器，捕获不到。但是在审批3中添加用户任务， 当审批3的用户审批后可以触发监听器。
+
+##### 注意，在测试的时候，开启流程要阻塞的时间大于设置的时间，不然没有jvm进程去跑定时任务，那个超时就不生效了
+```java
+@Test
+    public void testRunProcess() throws InterruptedException {
+        ProcessEngine processEngine = configuration.buildProcessEngine();
+
+        //我们需要通过RuntimeService来启动流程实例
+        RuntimeService runtimeService = processEngine.getRuntimeService();
+        //构建流程实例
+        Map<String,Object> variables = new HashMap<>();
+        variables.put("skip",true);
+        variables.put("_FLOWABLE_SKIP_EXPRESSION_ENABLED", true);
+        //启动流程实例
+        ProcessInstance holidayRequest = runtimeService.startProcessInstanceByKey("myTestKey", variables);
+//        ProcessInstance holidayRequest = runtimeService.startProcessInstanceByKeyAndTenantId("myTestKey1234", variables, "user1");
+        System.out.println("holidayRequest.getProcessDefinitionId(); = " + holidayRequest.getProcessDefinitionId());
+        System.out.println("holidayRequest.getActivityId(); = " + holidayRequest.getActivityId());
+        System.out.println("holidayRequest.getId(); = " + holidayRequest.getId());
+        Thread.sleep(1000*60*2);
+    }
+```
