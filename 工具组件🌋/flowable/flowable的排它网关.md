@@ -116,6 +116,13 @@ xml中，到7是第一个
 
 还是报错，所以说要fork出两个出去的流，要使用并行网关。
 
+##### 设置默认流
+
+![image](https://user-images.githubusercontent.com/97614802/195695592-95a49d7c-2fac-4bd7-b709-ab108c380a1b.png)
+
+![image](https://user-images.githubusercontent.com/97614802/195695644-0ebc6a52-9048-47f1-87c4-a84cc31310d0.png)
+
+
 
 
 
