@@ -96,3 +96,29 @@ xml中，到7是第一个
 
 ![image](https://user-images.githubusercontent.com/97614802/195690938-f11d7b28-c9b5-413f-98c1-84c914d675f0.png)
 
+##### 不用排它网关的情况下，两个流的条件都为false，会不会报错呢
+
+![image](https://user-images.githubusercontent.com/97614802/195691610-63dd7ffe-c9b6-4e6b-90f3-c3667d33c9ed.png)
+
+结果也报错了，说明流程走不下去就会报错
+
+![image](https://user-images.githubusercontent.com/97614802/195692560-dffecfb9-0fc8-45a3-8380-ba06f5d7ad0d.png)
+
+##### 设置条件，让它通过，会不会报错呢
+
+{outcome1=='1'} {outcome1=='2'}
+
+![image](https://user-images.githubusercontent.com/97614802/195693707-b7cf3829-8c8e-4c74-8900-b0e2835070cb.png)
+
+还是报错，难道说，就不能直接从一个用户任务中直接拉出两条线吗，那去掉条件试试
+
+![image](https://user-images.githubusercontent.com/97614802/195694148-cda8885b-5350-4362-a1a2-30c8d4175abb.png)
+
+还是报错，所以说要fork出两个出去的流，要使用并行网关。
+
+
+
+
+
+
+
