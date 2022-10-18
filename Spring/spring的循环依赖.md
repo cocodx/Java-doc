@@ -12,3 +12,7 @@ private final Map<String, ObjectFactory<?>> singletonFactories = new HashMap<>(1
 ```
 
 一级缓存，我清楚，key是beanName，value是已经new好的对象，存在getBean的话，直接返回。没有的话，再去二级缓存查找。earlySingletonObjects，如果二级缓存也没有，再到三级缓存去找singletonFactories。
+
+![image](https://user-images.githubusercontent.com/97614802/196312072-544e0bd2-37bb-4ad5-8757-e3fbd3ab21dc.png)
+
+遇到循环依赖了
