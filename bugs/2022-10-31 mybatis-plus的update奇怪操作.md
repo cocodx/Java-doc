@@ -19,3 +19,7 @@
 ```
 
 entity 是set值，wrapper是组装where条件的
+
+修改之后，确实就正常了
+
+![image](https://user-images.githubusercontent.com/97614802/198967293-fd21e5cd-6441-47c3-9c4b-cfc56f63e787.png)
