@@ -15,5 +15,6 @@ cnpm run serve
 
 #### npm
 下载依赖 npm install -g cnpm --registry=https://registry.npm.taobao.org
+yarn 的作用和 npm install 作用一样
 
 启动项目 npm run dev
