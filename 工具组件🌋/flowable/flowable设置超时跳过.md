@@ -28,6 +28,10 @@ PT1H 表示一小时后
 
 PT1D 表示一天后
 
+**边缘事件的监听器，在Flowable的UI里面是配置不了，直接写在xml即可。**
+
+![image](https://user-images.githubusercontent.com/97614802/200502546-438fba13-9568-4673-84ef-879a1afd8a14.png)
+
 在xml中，边界定时事件为：
 ```java
 <boundaryEvent id="sid-5315E7CF-3D6F-4AE3-891E-5B4FEDA909DB" attachedToRef="sid-A489D71C-4A93-40AE-949C-C48758D7A645">
