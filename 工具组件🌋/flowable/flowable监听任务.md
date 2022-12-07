@@ -35,3 +35,6 @@ public class CreateTaskListener implements TaskListener {
 ![image](https://user-images.githubusercontent.com/97614802/200213597-047715b5-519a-418e-ba06-2020b65b5a93.png)
 
 ##### 转办给某用户，是否触发CreateTaskListener
+
+
+#### 在监听任务中，不能把某个service的事务标记成never，flowable会抛出异常
