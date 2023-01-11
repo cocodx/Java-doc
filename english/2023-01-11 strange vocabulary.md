@@ -1,4 +1,4 @@
-#### newest artical
+#### vocabulary
 
 railway line : 铁路线
 
@@ -11,6 +11,10 @@ scars:疤痕
 electrocution:电刑
 
 falls:跌倒
+
+virtually:几乎、实质上
+
+#### sentence
 
 It also saves people's work
 1. 我：它还可以拯救人们的工作
