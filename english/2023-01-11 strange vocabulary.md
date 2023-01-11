@@ -12,3 +12,7 @@ electrocution:电刑
 
 falls:跌倒
 
+It also saves people's work
+1. 我：它还可以拯救人们的工作
+2. 谷歌翻译：它还可以节省人们的工作
+
