@@ -14,6 +14,12 @@ falls:跌倒
 
 virtually:几乎、实质上
 
+lift:举起
+
+kilograms:公斤
+
+expects:期望
+
 #### sentence
 
 It also saves people's work
