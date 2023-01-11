@@ -6,3 +6,5 @@ crane:起重机
 
 robot:机器人
 
+scars:疤痕
+
