@@ -8,3 +8,5 @@ robot:机器人
 
 scars:疤痕
 
+electrocution:电刑
+
