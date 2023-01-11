@@ -10,3 +10,5 @@ scars:疤痕
 
 electrocution:电刑
 
+falls:跌倒
+
