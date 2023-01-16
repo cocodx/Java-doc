@@ -36,6 +36,10 @@ discharge:放电
 
 prompt:迅速的
 
+nightmare：噩梦
+
+grave：坟墓 tomb也是这个意思
+
 
 
 #### sentence
