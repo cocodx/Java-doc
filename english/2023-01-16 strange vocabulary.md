@@ -18,7 +18,7 @@ thermostats:恒温器
 
 advanced:先进的
 
-scale up:放大
+scale up:增加、增大
 
 decentralized:分散的
 
