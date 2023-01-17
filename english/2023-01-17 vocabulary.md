@@ -40,6 +40,10 @@ sewage tunnels：污水管道
 
 feces and rats：屎和老鼠
 
+demonstrate 证明
+
+be patient with what 对什么有耐心
+
 #### sentence
 
 his mother will face charges:他的妈妈将会面临指控。 charge好像也有充电的意思，charge，discharge
