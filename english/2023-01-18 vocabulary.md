@@ -12,6 +12,12 @@ mosques:清真寺
 
 co-founder:联合创始人
 
+hajj：朝圣
 
+pilgrimage：朝圣
+
+Islamic：伊斯兰教的
+ 
+in your pocket:在你的口袋 
 
 #### sentence
