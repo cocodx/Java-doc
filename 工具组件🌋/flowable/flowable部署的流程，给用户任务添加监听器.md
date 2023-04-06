@@ -35,3 +35,14 @@ do {
     i++;
 } while (!ObjectUtils.isEmpty(object));
 ```
+加上之后，再去进行流程部署，然后将新部署的流程信息，记录到自己创建的查询表里面，但是这样它的version，每次都跳两下
+
+```java
+Deployment newTaskDeployment =
+            repositoryService.createDeployment().addBpmnModel(deployment.getId() + ".bpmn", bpmnModel)
+                .name(model.getName()).key(model.getKey()).tenantId(tenantId).deploy();
+```
+
+除了加监听器之外，还可以获取到 SqenceFlow上的条件，然后将对应的参数添加到你的参数表里面。
+
+
