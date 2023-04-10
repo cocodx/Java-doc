@@ -11,3 +11,28 @@ public void methodName() {
 ```
 
 之前是有对应的命令，后面没做笔记忘记了
+
+```java
+test {
+    // 指定要运行的测试类
+    include 'com/example/MyUnitTest.class'
+    
+    // 指定要运行的测试方法
+    // include 'com/example/MyUnitTest.testMethod'
+    
+    // 指定要运行的测试组
+    // includeGroups 'fast'
+    
+    // 指定要排除的测试类
+    // exclude 'com/example/MySlowUnitTest.class'
+    
+    // 指定要排除的测试方法
+    // exclude 'com/example/MySlowUnitTest.testMethod'
+    
+    // 指定要排除的测试组
+    // excludeGroups 'slow'
+    
+    // 指定执行次数
+    maxParallelForks = 3
+}
+```
