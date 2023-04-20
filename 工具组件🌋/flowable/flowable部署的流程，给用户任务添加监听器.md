@@ -4,6 +4,10 @@
 
 基本原理：在调用flowable的流程部署之后，获取到信息，取到用户任务，加上监听器，重去部署一次。
 
+部署对应的表 **act_re_deploy**  实际存文件的表 **act_ge_bytearray**
+
+再去部署一次，要确保对应的act_ge_bytearray的二进制文件会被修改
+
 部署代码：
 ```java
 Deployment deployment = repositoryService.createDeployment().addBytes(processName, bpmnBytes)
