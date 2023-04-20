@@ -39,6 +39,43 @@ do {
     i++;
 } while (!ObjectUtils.isEmpty(object));
 ```
+
+#### taskListners对应的是 任务监听器
+
+任务监听器事件类型
+
+![image](https://user-images.githubusercontent.com/97614802/233274572-307fea67-356f-4b08-8e3a-0d984b497ad0.png)
+
+```java
+create assignment complete delete
+```
+
+executionListeners对应的是 执行监听器
+
+执行监听器类型
+
+![image](https://user-images.githubusercontent.com/97614802/233274794-01ae3210-9268-4ad5-b08c-2ab4959517b1.png)
+
+```java
+start end take
+```
+
+MyTaskListenerBpmnParseHandler.createTaskListener
+
+```java
+FlowableListener listener = new FlowableListener();
+List<FieldExtension> fieldExtensionList = new ArrayList<>();
+FieldExtension fieldExtension = new FieldExtension();
+fieldExtension.setFieldName("XXXXXXX");
+fieldExtension.setStringValue("XXXXXXX");
+fieldExtensionList.add(fieldExtension);
+listener.setFieldExtensions(fieldExtensionList);
+listener.setEvent(TaskListener.EVENTNAME_CREATE);
+//通过bean名称获取
+listener.setImplementationType("delegateExpression");
+listener.setImplementation("${bean的名称}");
+```
+
 加上之后，再去进行流程部署，然后将新部署的流程信息，记录到自己创建的查询表里面，但是这样它的version，每次都跳两下
 
 ```java
