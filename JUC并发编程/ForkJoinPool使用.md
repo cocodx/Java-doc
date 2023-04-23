@@ -75,3 +75,25 @@ ForkJoinWorkerThread 还可以通过覆盖其 onStart() 和 onTermination(Throwa
 
 总之，ForkJoinWorkerThread 是 ForkJoinPool 框架中执行任务的工作线程，它维护着自己的工作队列，并根据需要执行任务。
 
+#### 扩展 ForkJoinWorkerThread
+```java
+private static class xxxxxJoinWorkerThread extends ForkJoinWorkerThread{
+    xxxxxJoinWorkerThread(ForkJoinPool pool){
+        super(pool);
+        setContextLoader(Thread.currentThread().getContextClassLoader);
+    }
+}
+```
+
+##### new一个ForkJoinPool
+```java
+public static ForkJoinPool createForkJoinPool(){
+    return new ForkJoinPool(
+        ForkJoinPool.getCommonPoolParallelism(),
+        xxxxxJoinWorkerThread::new,
+        null,
+        false
+    )
+}
+```
+
