@@ -97,3 +97,11 @@ public static ForkJoinPool createForkJoinPool(){
 }
 ```
 
+#### ForkJoinTask的submit方法
+
+该方法将任务提交到指定的ForkJoinPool，并返回一个代表该任务的ForkJoinTask对象。如果当前线程正在运行一个ForkJoinPool，则可以使用该线程的ForkJoinPool对象调用submit()方法，而不必指定另一个ForkJoinPool。
+
+在执行submit()方法时，任务会被添加到ForkJoinPool的工作队列中。如果工作队列已满，则任务将被分割成更小的子任务，并提交到ForkJoinPool中。这些子任务将继续递归地分割和提交，直到达到某个阈值，然后使用线程池中的工作线程执行。
+
+submit()方法是异步的，因此它将立即返回，而不会等待任务的执行。如果需要等待任务执行完成，则可以使用join()方法或get()方法等待任务的完成，并获取任务执行的结果。
+
