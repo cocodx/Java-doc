@@ -34,6 +34,29 @@ runtimeService.createProcessInstanceBuilder().name("xxxxx").variables(params.get
 
 撤回的时候，需要删除act_ru_actinst的表数据。
 
+act_ru_actinst 表中有五条数据，依次说明：（开始节点，箭头线，提交人节点，箭头线，审批人1节点）
+额外说明,在act_hi_actinst历史记录表中也有对应5条数据跟act_ru_actinst保持一致,id_值都是一样的.那么删除的时候
+除了删act_ru_actinst表的id_值,act_hi_actinst表的数据也要删除.
+当前最新的是审批人1节点，当要进行撤回，这时是要退回到提交人节点，关于act_ru_actinst表的数据处理.
+disActivityId也就是act_id_,也就是在图上的节点id.
+撤回的时候,保留开始节点的历史数据就行了.其他都删掉.act_ru_actinst和act_hi_actinst
+
+查询act_ru_execution表中parent_id_值为当前流程实例id,获取到最新执行的子流程的executionId值.
+就可以根据flowable提供的api进行交换节点.
+
+```java
+List<Execution> executionIds = runtimeService.createExecutionQuery().parentId("xxxProcInstId")).list();
+```
+
+获取到execution的id数组集合
+
+再执行flowable提供的api，进行节点交换就行
+
+```java
+runtimeService.createChangeActivityStateBuilder()
+.moveExecutionsToSingleActivityId(executionIds, disActivity.getId()).changeState();
+```
+
 ![image](https://user-images.githubusercontent.com/97614802/236092288-d6cf74c7-b804-4d59-97fa-3bdcc1ec39bb.png)
 
 
