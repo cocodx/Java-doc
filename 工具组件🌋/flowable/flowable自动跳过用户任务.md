@@ -27,6 +27,15 @@ runtimeService.createProcessInstanceBuilder().name("xxxxx").variables(params.get
 
 结合流程撤回功能，以及重新发起功能进行使用。
 
+#### 撤回功能
+
+在用户发起之后，流程已经到审批人的用户任务节点进行审批，现在用户对此流程进行撤回操作。需要一个节点放置撤回状态，提交人的节点就可以起到作用了。
+可以将当前流程的节点，退回到提交人节点，根据名称“提交人”可以获取到提交人节点，节点名称需要唯一！！！请注意，
+
+撤回的时候，需要删除act_ru_actinst的表数据。
+
+![image](https://user-images.githubusercontent.com/97614802/236092288-d6cf74c7-b804-4d59-97fa-3bdcc1ec39bb.png)
+
 
 ##### 在开启任务的时候，在启动变量传入以允许跳转的属性
 ```java
