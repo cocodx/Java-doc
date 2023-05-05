@@ -38,3 +38,15 @@ my_db_01
  the purpose of the statement " set search_path to "the name of database"" is to set the default search path for the current
   session to "database name" ,which means thata when executing SQL queries of other operations,the system will look for the 
   corresponding table in "database name" 
+
+#### if launching project has error like this
+  
+  ```java
+  Error creating bean with name 'flywayConfig': Invocation of init method failed; nested exception is org.flywaydb.core.api.exception.FlywayValidateException: Validate failed: Migrations have failed validation
+Migration checksum mismatch for migration version 2.0.0
+  ```
+**flyway_schema_history **
+  
+  
+  delete all data from this table
+
